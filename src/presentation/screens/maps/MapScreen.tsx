@@ -1,9 +1,31 @@
-import {View, Text} from 'react-native'
+import {View, StyleSheet} from 'react-native'
+import {Map} from '../../components/maps/Map'
+import {useLocationStore} from '../../store/location/useLocationStore'
+import {LoadingScreen} from '../loading/LoadingScreen'
+import { useEffect } from 'react'
 
 export const MapScreen = () => {
+    const {lastKnownLocation, getLocation} = useLocationStore()
+
+    useEffect(() => {
+      if(lastKnownLocation === null){
+        getLocation();
+      }
+    }, [])
+    
+
+    if (lastKnownLocation === null) {
+        return <LoadingScreen />
+    }
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>MapScreen</Text>
+        <View style={styles.container}>
+            <Map initialLocation={lastKnownLocation} />
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        ...StyleSheet.absoluteFillObject,
+    },
+})
