@@ -6,6 +6,7 @@ import {
     StyleSheet,
     Pressable,
 } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Props {
     iconName: string
@@ -16,7 +17,9 @@ interface Props {
 export const FAB = ({iconName, onPress, style}: Props) => {
     return (
         <View style={[styles.btn, style]}>
-            <Pressable onPress={onPress}></Pressable>
+            <Pressable onPress={onPress}>
+                <Icon name={iconName} size={30} color="white"/>
+            </Pressable>
         </View>
     )
 }
